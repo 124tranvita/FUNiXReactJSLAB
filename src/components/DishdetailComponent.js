@@ -2,10 +2,10 @@ import { Card, ListGroup, ListGroupItem } from 'react-bootstrap';
 import { COMMENTS } from '../shared/comments';
 
 function DishDetail({ selectedDish }) {
-  console.log(COMMENTS);
+
   return (
-    <div className='row m-2'>
-      <div className='col-12 col-md-6'>
+    <div className='row p-5'>
+      <div className='col-12 col-md-5'>
         <Card>
           <Card.Img variant="top" src={selectedDish.image} alt={selectedDish.name} width="auto" />
           <Card.Body>
@@ -19,7 +19,7 @@ function DishDetail({ selectedDish }) {
           </ListGroup>
         </Card>
       </div>
-      <div className='col-12 col-md-6' style={{ textAlign: "left" }}>
+      <div className='col-12 col-md-5' style={{ textAlign: "left" }}>
         <h4>Comments</h4>
         <ul className='list-unstyled'>
           {COMMENTS.map((comment) => (
