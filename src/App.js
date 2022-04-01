@@ -2,7 +2,8 @@ import logo from './logo.svg';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Button, Navbar, Container, Nav } from 'react-bootstrap';
-import Menu from './components/MenuComponent'
+import Menu from './components/MenuComponent';
+import { DISHES } from './shared/dishes';
 
 function App() {
   return (
@@ -16,7 +17,7 @@ function App() {
           </Nav>
         </Container>
       </Navbar>
-      <Menu />
+      <Menu dishes={DISHES} />
     </div>
   );
 }
