@@ -1,37 +1,62 @@
-import { Card, ListGroup, ListGroupItem } from 'react-bootstrap';
+import React, { Component } from 'react';
+import { Card, CardImg, CardImgOverlay, CardTitle, CardBody, CardText } from 'reactstrap';
 import { COMMENTS } from '../shared/comments';
 
-function DishDetail({ selectedDish }) {
+class DishDetail extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      comments: COMMENTS
+    }
+  }
 
-  return (
-    <div className='row p-5'>
-      <div className='col-12 col-md-5'>
+  renderSelectedDish() {
+    if (this.props.selectedDish != null)
+      return (
         <Card>
-          <Card.Img variant="top" src={selectedDish.image} alt={selectedDish.name} width="auto" />
-          <Card.Body>
-            <Card.Title>{selectedDish.name}</Card.Title>
-            <Card.Text>{selectedDish.description}</Card.Text>
-          </Card.Body>
-          <ListGroup className="list-group-flush">
-            <ListGroupItem>Category: {selectedDish.category}</ListGroupItem>
-            <ListGroupItem>Price: {selectedDish.price}</ListGroupItem>
-            <ListGroupItem>Label: {selectedDish.label || "None"}</ListGroupItem>
-          </ListGroup>
+          <CardImg top src={this.props.selectedDish.image} alt={this.props.selectedDish.name} />
+          <CardBody>
+            <CardTitle>{this.props.selectedDish.name}</CardTitle>
+            <CardText>{this.props.selectedDish.description}</CardText>
+          </CardBody>
         </Card>
+      );
+    else
+      return (
+        <></>
+      );
+  }
+
+  renderComments() {
+    const comment = this.state.comments.map((comment) => {
+      return (
+        <div key={comment.id}>
+          <p>{comment.content}</p>
+          <p>-- <span>{comment.username}</span>, <span>{comment.date}</span></p>
+        </div>
+      )
+    })
+    if (this.props.selectedDish != null)
+      return comment;
+    else
+      return (
+        <></>
+      )
+  }
+
+  render() {
+    return (
+      <div className='row' >
+        <div className='col-12 col-md-5 mt-5'>
+          {this.renderSelectedDish()}
+        </div>
+        <div className='col-12 col-md-5 mt-5' style={{ textAlign: 'left' }}>
+          {(this.props.selectedDish != null) && (<h3>Comment</h3>)}
+          {this.renderComments()}
+        </div>
       </div>
-      <div className='col-12 col-md-5' style={{ textAlign: "left" }}>
-        <h4>Comments</h4>
-        <ul className='list-unstyled'>
-          {COMMENTS.map((comment) => (
-            <li key={comment.id}>
-              <p>{comment.content}</p>
-              <p>-- {comment.username}<span>{comment.date}</span></p>
-            </li>
-          ))}
-        </ul>
-      </div>
-    </div>
-  )
+    )
+  }
 }
 
 export default DishDetail
