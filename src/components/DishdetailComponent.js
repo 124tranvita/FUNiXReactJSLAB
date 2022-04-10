@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Card, CardImg, CardImgOverlay, CardTitle, CardBody, CardText } from 'reactstrap';
+import { Card, CardImg, CardTitle, CardBody, CardText } from 'reactstrap';
 import { COMMENTS } from '../shared/comments';
 
 class DishDetail extends Component {
