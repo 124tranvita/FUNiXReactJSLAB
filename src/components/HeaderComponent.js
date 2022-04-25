@@ -126,7 +126,10 @@ class Header extends Component {
                   type="text"
                   id="username"
                   name="username"
-                  innerRef={(input) => (this.username = input)}
+                  innerRef={(input) => {
+                    console.log(input);
+                    return (this.username = input);
+                  }}
                 />
               </FormGroup>
               <FormGroup>
