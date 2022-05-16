@@ -49,7 +49,7 @@ class CommentForm extends Component {
                   id="rating"
                   name="rating"
                   placeholder="Your Name">
-                  <option selected>Select rating</option>
+                  <option selected>Choose your rating</option>
                   <option value="1">1</option>
                   <option value="2">2</option>
                   <option value="3">3</option>
