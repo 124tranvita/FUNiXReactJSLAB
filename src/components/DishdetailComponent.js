@@ -82,7 +82,10 @@ const DishDetail = (props) => {
           <div className="col-12 col-md-5 m-1">
             <h3>Comments</h3>
             <RenderComments comments={props.comments} />
-            <CommentForm dishId={props.dish.id} addComment={props.addComment} />
+            <CommentForm
+              dishId={props.dish.id}
+              postComment={props.postComment}
+            />
           </div>
         </div>
       </div>
