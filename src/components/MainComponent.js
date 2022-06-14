@@ -15,6 +15,7 @@ import {
   fetchPromos,
 } from "../redux/ActionCreator";
 import { actions } from "react-redux-form";
+import { CSSTransition, TransitionGroup } from "react-transition-group";
 
 const mapStateToProps = (state) => {
   return {
@@ -102,30 +103,37 @@ class Main extends Component {
     return (
       <div>
         <Header />
-        <Switch>
-          <Route path="/home" component={HomePage} />
-          <Route
-            exact
-            path="/menu"
-            component={() => (
-              <Menu
-                dishes={this.props.dishes}
-                onClick={(dishId) => this.onDishSelected(dishId)}
+        <TransitionGroup>
+          <CSSTransition
+            key={this.props.location.key}
+            classNames="page"
+            timeout={300}
+          >
+            <Switch>
+              <Route path="/home" component={HomePage} />
+              <Route
+                exact
+                path="/menu"
+                component={() => (
+                  <Menu
+                    dishes={this.props.dishes}
+                    onClick={(dishId) => this.onDishSelected(dishId)}
+                  />
+                )}
               />
-            )}
-          />
-          <Route
-            exact
-            path="/contactus"
-            component={() => (
-              <Contact resetFeedbackForm={this.props.resetFeedbackForm} />
-            )}
-          />
-          <Route path="/menu/:dishId" component={DishWithId} />
-          <Route exact path="/aboutus" component={AboutPage} />
-          <Redirect to="/home" />
-        </Switch>
-
+              <Route
+                exact
+                path="/contactus"
+                component={() => (
+                  <Contact resetFeedbackForm={this.props.resetFeedbackForm} />
+                )}
+              />
+              <Route path="/menu/:dishId" component={DishWithId} />
+              <Route exact path="/aboutus" component={AboutPage} />
+              <Redirect to="/home" />
+            </Switch>
+          </CSSTransition>
+        </TransitionGroup>
         {/* <DishDetail dish={this.props.dishes.filter((dish) => dish.id === this.props.selectedDish)[0]} comments={COMMENTS} /> */}
         <Footer />
       </div>
