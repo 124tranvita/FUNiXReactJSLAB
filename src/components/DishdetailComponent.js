@@ -13,17 +13,23 @@ import CommentForm from "./CommentFormComponent";
 //import { addComment } from "../redux/ActionCreator";
 import { Loading } from "./LoadingComponent";
 import { baseUrl } from "../shared/baseUrl";
+import { FadeTransform, Fade, Stagger } from "react-animation-components";
 
 function RenderDish({ dish }) {
   if (dish != null)
     return (
-      <Card>
-        <CardImg top src={baseUrl + dish.image} alt={dish.name} />
-        <CardBody>
-          <CardTitle>{dish.name}</CardTitle>
-          <CardText>{dish.description}</CardText>
-        </CardBody>
-      </Card>
+      <FadeTransform
+        in
+        tranformProps={{ exitTransform: "scale(0.5) translateY(-50%)" }}
+      >
+        <Card>
+          <CardImg top src={baseUrl + dish.image} alt={dish.name} />
+          <CardBody>
+            <CardTitle>{dish.name}</CardTitle>
+            <CardText>{dish.description}</CardText>
+          </CardBody>
+        </Card>
+      </FadeTransform>
     );
   else return <></>;
 }
@@ -31,12 +37,16 @@ function RenderDish({ dish }) {
 function RenderComments({ comments }) {
   const comment = comments.map((comment) => {
     return (
-      <div key={comment.id}>
-        <p>{comment.comment}</p>
-        <p>
-          -- <span>{comment.author}</span>, <span>{comment.date}</span>
-        </p>
-      </div>
+      <Stagger in>
+        <div key={comment.id}>
+          <Fade in>
+            <p>{comment.comment}</p>
+            <p>
+              -- <span>{comment.author}</span>, <span>{comment.date}</span>
+            </p>
+          </Fade>
+        </div>
+      </Stagger>
     );
   });
 

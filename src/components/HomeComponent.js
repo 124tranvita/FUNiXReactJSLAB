@@ -9,33 +9,38 @@ import {
 } from "reactstrap";
 import { Loading } from "./LoadingComponent";
 import { baseUrl } from "../shared/baseUrl";
+import { FadeTransform } from "react-animation-components";
 
-function RenderCard({ item, isLoading, errMess }) {
-  console.log("Home Error: ", errMess);
+function RenderCard({ item, isLoading, errorMess }) {
   if (isLoading) {
     return (
       <>
         <Loading />
       </>
     );
-  } else if (errMess) {
+  } else if (errorMess) {
     return (
       <>
-        <h4>{errMess}</h4>
+        <h4>{errorMess}</h4>
       </>
     );
   } else
     return (
-      <Card>
-        <CardImg src={baseUrl + item.image} alt={item.name} />
-        <CardBody>
-          <CardTitle>{item.name}</CardTitle>
-          {item.designation ? (
-            <CardSubtitle>{item.designation}</CardSubtitle>
-          ) : null}
-          <CardText>{item.description}</CardText>
-        </CardBody>
-      </Card>
+      <FadeTransform
+        in
+        tranformProps={{ exitTransform: "scale(0.5) translateY(-50%)" }}
+      >
+        <Card>
+          <CardImg src={baseUrl + item.image} alt={item.name} />
+          <CardBody>
+            <CardTitle>{item.name}</CardTitle>
+            {item.designation ? (
+              <CardSubtitle>{item.designation}</CardSubtitle>
+            ) : null}
+            <CardText>{item.description}</CardText>
+          </CardBody>
+        </Card>
+      </FadeTransform>
     );
 }
 
@@ -47,14 +52,14 @@ function Home(props) {
           <RenderCard
             item={props.dish}
             isLoading={props.dishesLoading}
-            errMess={props.dishesErrMess}
+            errorMess={props.dishesErrMess}
           />
         </div>
         <div className="col-12 col-md m-1">
           <RenderCard
             item={props.promotion}
             isLoading={props.promosLoading}
-            errMess={props.promosErrMess}
+            errorMess={props.promosErrMess}
           />
         </div>
         <div className="col-12 col-md m-1">
